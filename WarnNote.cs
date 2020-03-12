@@ -6,7 +6,6 @@ namespace NoteApp
     {
         private const int MAX_WARNING = 3;
         private const int MIN_WARNING = 1;
-        private const int DEFAULT_WARNING = MIN_WARNING;
         private const char WARNING_LEVEL_STRING_INDICATOR = '*';
         private const string TEXT_ICON = "/!\\";
 
@@ -24,12 +23,10 @@ namespace NoteApp
             }
         }
 
-        public override void Create(string header, string content)
+        public void Create(string header, string content, int warningLevel)
         {
-            Header = header;
-            Content = content;
-            DateTime = DateTime.Now;
-            warningLevel = DEFAULT_WARNING;
+            Create(header, content);
+            WarningLevel = warningLevel;
         }
 
         public override void DisplayFullInfo()

@@ -4,21 +4,18 @@ namespace NoteApp
 {
     class InfoNote : Note
     {
-        public override void Create(string header, string content)
-        {
-            Header = header;
-            Content = content;
-            DateTime = DateTime.Now;
-        }
+        private const string TEXT_ICON = "(i)";
 
         public override void DisplayFullInfo()
         {
-
+            Console.WriteLine($"{TEXT_ICON} INFO:");
+            Console.WriteLine($"{Header}");
+            Console.WriteLine($"{Content}");
         }
 
         public override void DisplayShortInfo()
         {
-
+            Console.WriteLine($"{TEXT_ICON} {Header}");
         }
     }
 }

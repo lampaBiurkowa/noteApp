@@ -2,7 +2,7 @@
 {
     class ListItem
     {
-        public int Id { get; set; }
+        public bool Highlighted { get; set; }
         public string Content { get; set; }
     }
 }
