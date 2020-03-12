@@ -10,22 +10,33 @@ namespace NoteApp
         private const char WARNING_LEVEL_STRING_INDICATOR = '*';
         private const string TEXT_ICON = "/!\\";
 
-        public int WarningLevel { get; set; }
+        private int warningLevel;
+
+        public int WarningLevel
+        {
+            get => warningLevel;
+            set
+            {
+                if (value >= MIN_WARNING && value <= MAX_WARNING)
+                    warningLevel = WarningLevel;
+                else
+                    Logger.PrintError("Wrong warning set (must be from range <1, 3>)");
+            }
+        }
 
         public override void Create(string header, string content)
         {
             Header = header;
             Content = content;
             DateTime = DateTime.Now;
-            WarningLevel = DEFAULT_WARNING;
+            warningLevel = DEFAULT_WARNING;
         }
 
         public override void DisplayFullInfo()
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"{TEXT_ICON} WARNING:");
-            Console.WriteLine($"{Header}");
-            Console.Beep();
+            Console.WriteLine($"{Header} ({getWarningLevelAsString()})");
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine($"{Content}");
         }
