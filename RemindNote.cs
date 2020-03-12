@@ -6,14 +6,40 @@ namespace NoteApp
 {
     public class RemindNote : Note
     {
-        private const string TEXT_ICON = "(@)";
-        private const string ID = "REMIND";
+        private const int REMIND_DATE_SAVE_INDEX = 4;
 
-        public DateTime RemindDate { get; private set; }
+        private const string TEXT_ICON = "(@)";
+        public const string ID = "REMIND";
+
+        public DateTime RemindDate { get; private set; } = new DateTime();
 
         public RemindNote(string header, string content, DateTime remindDate) : base(header, content)
         {
             RemindDate = remindDate;
+        }
+
+        public RemindNote(string line) : base(line)
+        {
+        }
+
+        public override void BuildFromLine(string line)
+        {
+            string[] components = line.Split(FileLoader.SEPARATOR);
+            try
+            {
+                initStandardPropertiesFromComponents(components);
+                initRemindDate(components);
+            }
+            catch (Exception e)
+            {
+                handleReadingError(components.Length, REMIND_DATE_SAVE_INDEX + 1);
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        private void initRemindDate(string[] components)
+        {
+            RemindDate = DateTime.Parse(components[REMIND_DATE_SAVE_INDEX]);
         }
 
         public override void DisplayFullInfo()

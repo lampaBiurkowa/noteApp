@@ -6,7 +6,7 @@ namespace NoteApp
 {
     public class ListNote : Note, IListNote
     {
-        private const string ID = "LIST";
+        public const string ID = "LIST";
         private const string TEXT_ICON = "=";
 
         private List<ListItem> items = new List<ListItem>();
@@ -25,6 +25,46 @@ namespace NoteApp
                     result++;
 
             return result;
+        }
+
+        public ListNote(string line) : base(line)
+        {
+        }
+
+        public override void BuildFromLine(string line)
+        {
+            string[] components = line.Split(FileLoader.SEPARATOR);
+            try
+            {
+                initStandardPropertiesFromComponents(components);
+                initListItemsFromComponents(components);
+            }
+            catch (Exception e)
+            {
+                handleReadingError(components.Length, DATE_TIME_SAVE_INDEX + 1);
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        private void initListItemsFromComponents(string[] components)
+        {
+            for (int i = DATE_TIME_SAVE_INDEX + 1; i < components.Length; i += ListItem.SAVE_COMPONENTS_COUNT)
+                try
+                {
+                    initSingleListItemFromComponent(components, i);
+                }
+                catch (Exception e)
+                {
+                    handleReadingError(components.Length - i, ListItem.HIGHLIGHTED_SAVE_INDEX);
+                    Console.WriteLine(e.Message);
+                }
+        }
+
+        private void initSingleListItemFromComponent(string[] components, int index)
+        {
+            string content = components[0];
+            bool highlighted = bool.Parse(components[1]);
+            TryAddToList(new ListItem(content, highlighted));
         }
 
         public void DisplayItem(ListItem item)

@@ -7,10 +7,28 @@ namespace NoteApp
     public class InfoNote : Note
     {
         private const string TEXT_ICON = "(i)";
-        private const string ID = "INFO";
+        public const string ID = "INFO";
 
         public InfoNote(string header, string content) : base(header, content)
         {
+        }
+
+        public InfoNote(string line) : base(line)
+        {
+        }
+
+        public override void BuildFromLine(string line)
+        {
+            string[] components = line.Split(FileLoader.SEPARATOR);
+            try
+            {
+                initStandardPropertiesFromComponents(components);
+            }
+            catch (Exception e)
+            {
+                handleReadingError(components.Length, DATE_TIME_SAVE_INDEX + 1);
+                Console.WriteLine(e.Message);
+            }
         }
 
         public override void DisplayFullInfo()

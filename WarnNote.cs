@@ -8,9 +8,11 @@ namespace NoteApp
     {
         private const int MAX_WARNING = 3;
         private const int MIN_WARNING = 1;
+        private const int WARNING_LEVEL_SAVE_INDEX = 4;
+
         private const char WARNING_LEVEL_STRING_INDICATOR = '*';
         private const string TEXT_ICON = "/!\\";
-        private const string ID = "WARNING";
+        public const string ID = "WARNING";
 
         private int warningLevel;
 
@@ -29,6 +31,30 @@ namespace NoteApp
         public WarnNote(string header, string content, int warningLevel) : base(header, content)
         {
             WarningLevel = warningLevel;
+        }
+
+        public WarnNote(string line) : base(line)
+        {
+        }
+
+        public override void BuildFromLine(string line)
+        {
+            string[] components = line.Split(FileLoader.SEPARATOR);
+            try
+            {
+                initStandardPropertiesFromComponents(components);
+                initWarningLevel(components);
+            }
+            catch (Exception e)
+            {
+                handleReadingError(components.Length, WARNING_LEVEL_SAVE_INDEX + 1);
+                Console.WriteLine(e.Message);
+            }
+        }
+
+        private void initWarningLevel(string[] components)
+        {
+            WarningLevel = int.Parse(components[WARNING_LEVEL_SAVE_INDEX]);
         }
 
         public override void DisplayFullInfo()
