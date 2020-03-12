@@ -1,12 +1,14 @@
-﻿using System;
-
-namespace NoteApp
+﻿namespace NoteApp
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            WarnNote note = new WarnNote();
+            note.Create("u", "jea");
+
+            note.DisplayFullInfo();
+            note.DisplayShortInfo();
         }
     }
 }

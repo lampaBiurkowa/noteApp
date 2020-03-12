@@ -10,14 +10,8 @@ namespace NoteApp
         public string Content { get; set; }
         public string Header { get; set; }
 
+        public abstract void Create(string header, string content);
         public abstract void DisplayFullInfo();
         public abstract void DisplayShortInfo();
-
-        public void Create(string header, string content)
-        {
-            Header = header;
-            Content = content;
-            DateTime = DateTime.Now;
-        }
     }
 }

@@ -1,7 +1,15 @@
-﻿namespace NoteApp
+﻿using System;
+
+namespace NoteApp
 {
     class CheckNote : Note, IListNote
     {
+        public override void Create(string header, string content)
+        {
+            Header = header;
+            Content = content;
+            DateTime = DateTime.Now;
+        }
         public override void DisplayFullInfo()
         {
 
