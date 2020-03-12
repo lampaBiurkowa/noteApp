@@ -1,23 +1,23 @@
 ﻿namespace NoteApp
 {
-    class CheckNote : Note, INote, IListNote
+    class CheckNote : Note, IListNote
     {
-        public void Create(string header, string content)
+        public override void DisplayFullInfo()
         {
 
         }
 
-        public void Display()
+        public override void DisplayShortInfo()
         {
 
         }
 
-        public void AddToList(CheckListItem item)
+        public void AddToList(ListItem item)
         {
 
         }
 
-        public void RemoveFromList(CheckListItem item)
+        public void RemoveFromList(ListItem item)
         {
 
         }

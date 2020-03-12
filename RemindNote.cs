@@ -1,10 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NoteApp
+﻿namespace NoteApp
 {
-    class RemindNote
+    class RemindNote : Note
     {
+        public override void DisplayFullInfo()
+        {
+
+        }
+
+        public override void DisplayShortInfo()
+        {
+
+        }
     }
 }

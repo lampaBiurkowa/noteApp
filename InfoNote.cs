@@ -1,13 +1,13 @@
 ﻿namespace NoteApp
 {
-    class InfoNote : Note, INote
+    class InfoNote : Note
     {
-        public void Create(string header, string content)
+        public override void DisplayFullInfo()
         {
 
         }
 
-        public void Display()
+        public override void DisplayShortInfo()
         {
 
         }

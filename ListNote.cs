@@ -1,13 +1,13 @@
 ﻿namespace NoteApp
 {
-    class ListNote : Note, INote, IListNote
+    class ListNote : Note, IListNote
     {
-        public void Create(string header, string content)
+        public override void DisplayFullInfo()
         {
 
         }
 
-        public void Display()
+        public override void DisplayShortInfo()
         {
 
         }

@@ -1,13 +1,17 @@
-﻿namespace NoteApp
+﻿using System;
+
+namespace NoteApp
 {
-    class WarnNote : Note, INote
+    class WarnNote : Note
     {
-        public void Create(string header, string content)
+        private const string TEXT_ICON = "/!\\";
+
+        public override void DisplayFullInfo()
         {
 
         }
 
-        public void Display()
+        public override void DisplayShortInfo()
         {
 
         }

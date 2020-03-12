@@ -2,7 +2,7 @@
 {
     interface INote
     {
-        void Create(string header, string content);
-        void Display();
+        void DisplayFullInfo();
+        void DisplayShortInfo();
     }
 }
