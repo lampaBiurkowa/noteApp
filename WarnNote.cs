@@ -23,9 +23,8 @@ namespace NoteApp
             }
         }
 
-        public void Create(string header, string content, int warningLevel)
+        public WarnNote(string header, string content, int warningLevel) : base(header, content)
         {
-            Create(header, content);
             WarningLevel = warningLevel;
         }
 

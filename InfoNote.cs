@@ -6,6 +6,10 @@ namespace NoteApp
     {
         private const string TEXT_ICON = "(i)";
 
+        public InfoNote(string header, string content) : base(header, content)
+        {
+        }
+
         public override void DisplayFullInfo()
         {
             Console.WriteLine($"{TEXT_ICON} INFO:");

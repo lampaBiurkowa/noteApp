@@ -9,6 +9,10 @@ namespace NoteApp
         private List<ListItem> items = new List<ListItem>();
         private int highlightedItemsCount = 0;
 
+        public ListNote(string header, string content) : base(header, content)
+        {
+        }
+
         public void DisplayItem(ListItem item)
         {
             if (item.Highlighted)
@@ -29,7 +33,7 @@ namespace NoteApp
         private void displayMainInfo()
         {
             Console.WriteLine($"{TEXT_ICON} INFO:");
-            Console.WriteLine($"{Header}");
+            Console.WriteLine($"{Header} ({items.Count} items, {highlightedItemsCount} highlighted)");
             Console.WriteLine($"{Content}");
         }
 
@@ -41,11 +45,17 @@ namespace NoteApp
 
         public override void DisplayShortInfo()
         {
-            Console.WriteLine($"{TEXT_ICON} {Header} ({items.Count} items)");
+            Console.WriteLine($"{TEXT_ICON} {Header} ({items.Count} items, {highlightedItemsCount} highlighted)");
         }
 
         public void AddToList(ListItem item)
         {
+            if (items.Contains(item))
+            {
+                Logger.PrintError($"Item: {item} (Content = {item.Content}, Highlighted = {item.Highlighted}) already exists");
+                return;
+            }
+
             items.Add(item);
             if (item.Highlighted)
                 highlightedItemsCount++;
