@@ -1,6 +1,7 @@
 ﻿namespace NoteApp
 {
-    static class FileLoader
+    public static class FileLoader
     {
+        public const char SEPARATOR = ':';
     }
 }

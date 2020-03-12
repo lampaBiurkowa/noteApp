@@ -2,14 +2,14 @@
 
 namespace NoteApp
 {
-    class ListItem : IEquatable<ListItem>
+    public class ListItem : IEquatable<ListItem>
     {
         public bool Highlighted { get; set; }
         public string Content { get; set; }
 
         public bool Equals(ListItem compared)
         {
-            return Highlighted == Highlighted && compared.Content == compared.Content;
+            return compared.Highlighted == Highlighted && Content == compared.Content;
         }
     }
 }

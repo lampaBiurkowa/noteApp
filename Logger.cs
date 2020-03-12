@@ -3,7 +3,7 @@ using System.IO;
 
 namespace NoteApp
 {
-    static class Logger
+    public static class Logger
     {
         private const string LOG_FILE_PATH = "errors.log";
         public static void PrintError(string content)

@@ -2,7 +2,7 @@
 
 namespace NoteApp
 {
-    abstract class Note : INote
+    public abstract class Note : INote
     {
         protected const string DATE_FORMAT = "dd/MM/yyyy HH:mm:ss";
 
@@ -19,5 +19,6 @@ namespace NoteApp
 
         public abstract void DisplayFullInfo();
         public abstract void DisplayShortInfo();
+        public abstract string GetSaveEntry();
     }
 }

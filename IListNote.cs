@@ -2,8 +2,8 @@
 {
     interface IListNote
     {
-        void AddToList(ListItem item);
+        bool TryAddToList(ListItem item);
         void DisplayItem(ListItem item);
-        void RemoveFromList(ListItem item);
+        bool TryRemoveFromList(ListItem item);
     }
 }

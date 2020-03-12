@@ -4,5 +4,6 @@
     {
         void DisplayFullInfo();
         void DisplayShortInfo();
+        string GetSaveEntry();
     }
 }
