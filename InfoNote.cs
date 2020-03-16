@@ -13,10 +13,6 @@ namespace NoteApp
         {
         }
 
-        public InfoNote(string header, string content) : base(header, content)
-        {
-        }
-
         public InfoNote(string line) : base(line)
         {
         }
@@ -35,9 +31,9 @@ namespace NoteApp
             }
         }
 
-        public override INote BuildFromInput(string header, string content)
+        public override void BuildFromInput(string header, string content)
         {
-            return new InfoNote(header, content);
+            Create(header, content);
         }
 
         public override void DisplayFullInfo()

@@ -32,13 +32,14 @@ namespace NoteApp
         {
         }
 
-        public WarnNote(string header, string content, int warningLevel) : base(header, content)
-        {
-            WarningLevel = warningLevel;
-        }
-
         public WarnNote(string line) : base(line)
         {
+        }
+
+        public void Create(string header, string content, int warningLevel)
+        {
+            base.Create(header, content);
+            WarningLevel = warningLevel;
         }
 
         public override void BuildFromLine(string line)
@@ -61,11 +62,11 @@ namespace NoteApp
             WarningLevel = int.Parse(components[WARNING_LEVEL_SAVE_INDEX]);
         }
 
-        public override INote BuildFromInput(string header, string content)
+        public override void BuildFromInput(string header, string content)
         {
             int warningLevel;
             int.TryParse(Console.ReadLine(), out warningLevel);
-            return new WarnNote(header, content, warningLevel);
+            Create(header, content, warningLevel);
         }
 
         public override void DisplayFullInfo()

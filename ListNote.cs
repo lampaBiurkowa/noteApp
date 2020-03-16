@@ -16,11 +16,6 @@ namespace NoteApp
         {
         }
 
-        public ListNote(string header, string content) : base(header, content)
-        {
-            highlightedItemsCount = getHighlightedItemsCount();
-        }
-
         private int getHighlightedItemsCount()
         {
             int result = 0;
@@ -33,6 +28,7 @@ namespace NoteApp
 
         public ListNote(string line) : base(line)
         {
+            highlightedItemsCount = getHighlightedItemsCount();
         }
 
         public override void BuildFromLine(string line)
@@ -71,9 +67,9 @@ namespace NoteApp
             TryAddToList(new ListItem(content, highlighted));
         }
 
-        public override INote BuildFromInput(string header, string content)
+        public override void BuildFromInput(string header, string content)
         {
-            return new ListNote(header, content);
+            Create(header, content);
         }
 
         public void DisplayItem(ListItem item)

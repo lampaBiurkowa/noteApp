@@ -17,13 +17,14 @@ namespace NoteApp
         {
         }
 
-        public RemindNote(string header, string content, DateTime remindDate) : base(header, content)
-        {
-            RemindDate = remindDate;
-        }
-
         public RemindNote(string line) : base(line)
         {
+        }
+
+        public void Create(string header, string content, DateTime remindDate)
+        {
+            base.Create(header, content);
+            RemindDate = remindDate;
         }
 
         public override void BuildFromLine(string line)
@@ -46,11 +47,11 @@ namespace NoteApp
             RemindDate = DateTime.Parse(components[REMIND_DATE_SAVE_INDEX]);
         }
 
-        public override INote BuildFromInput(string header, string content)
+        public override void BuildFromInput(string header, string content)
         {
             DateTime remindDate;
             DateTime.TryParse(Console.ReadLine(), out remindDate);
-            return new RemindNote(header, content, remindDate);
+            Create(header, content, remindDate);
         }
 
         public override void DisplayFullInfo()

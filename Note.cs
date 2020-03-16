@@ -18,21 +18,20 @@ namespace NoteApp
         {
         }
 
-        public Note(string header, string content)
-        {
-            Header = header;
-            Content = content;
-            DateTime = DateTime.Now;
-            Console.WriteLine($"hejja {DateTime.ToString(DATE_FORMAT)}");
-        }
-
         public Note(string line)
         {
             BuildFromLine(line);
         }
 
         public abstract void BuildFromLine(string line);
-        public abstract INote BuildFromInput(string header, string content);
+        public abstract void BuildFromInput(string header, string content);
+        public void Create(string header, string content)
+        {
+            Header = header;
+            Content = content;
+            DateTime = DateTime.Now;
+        }
+
         public abstract void DisplayFullInfo();
         public abstract void DisplayShortInfo();
         public abstract string GetSaveEntry();
@@ -47,9 +46,9 @@ namespace NoteApp
         protected void handleReadingError(int componentsLength, int maxIndex)
         {
             if (componentsLength < maxIndex)
-                Logger.PrintError("Invalid file data in line {line}");
+                Logger.PrintError($"Invalid file data");
             else
-                Logger.PrintError("Failed to parse line {line}");
+                Logger.PrintError($"Failed to parse");
         }
     }
 }
