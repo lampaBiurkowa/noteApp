@@ -13,6 +13,10 @@ namespace NoteApp
 
         public DateTime RemindDate { get; private set; } = new DateTime();
 
+        public RemindNote() : base()
+        {
+        }
+
         public RemindNote(string header, string content, DateTime remindDate) : base(header, content)
         {
             RemindDate = remindDate;
@@ -40,6 +44,13 @@ namespace NoteApp
         private void initRemindDate(string[] components)
         {
             RemindDate = DateTime.Parse(components[REMIND_DATE_SAVE_INDEX]);
+        }
+
+        public override INote BuildFromInput(string header, string content)
+        {
+            DateTime remindDate;
+            DateTime.TryParse(Console.ReadLine(), out remindDate);
+            return new RemindNote(header, content, remindDate);
         }
 
         public override void DisplayFullInfo()

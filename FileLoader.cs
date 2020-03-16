@@ -6,7 +6,7 @@ namespace NoteApp
 {
     public static class FileLoader
     {
-        public const char SEPARATOR = ':';
+        public const char SEPARATOR = '#';
         public const string SAVE_FILE_PATH = "Save.txt";
 
         public static List<Note> GetAllNotes()
@@ -39,6 +39,11 @@ namespace NoteApp
         private static void handleUnrecognizedNoteError(string line)
         {
             Logger.PrintError($"Unrecognized note type in line {line}");
+        }
+        public static void SaveAllNotes(List<Note> notes)
+        {
+            foreach (var note in notes)
+                File.AppendAllText(SAVE_FILE_PATH, $"{note.GetSaveEntry()}\n");
         }
     }
 }

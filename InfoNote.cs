@@ -9,6 +9,10 @@ namespace NoteApp
         private const string TEXT_ICON = "(i)";
         public const string ID = "INFO";
 
+        public InfoNote()
+        {
+        }
+
         public InfoNote(string header, string content) : base(header, content)
         {
         }
@@ -31,6 +35,11 @@ namespace NoteApp
             }
         }
 
+        public override INote BuildFromInput(string header, string content)
+        {
+            return new InfoNote(header, content);
+        }
+
         public override void DisplayFullInfo()
         {
             Console.WriteLine($"{TEXT_ICON} {ID}:");
@@ -46,6 +55,9 @@ namespace NoteApp
 
         public override string GetSaveEntry()
         {
+            Console.WriteLine(Header);
+            Console.WriteLine(Content);
+            Console.WriteLine(DateTime.ToString(DATE_FORMAT));
             List<string> dataToSave = new List<string>() { ID, Header, Content, DateTime.ToString(DATE_FORMAT) };
             return dataToSave.Aggregate((i, j) => i + FileLoader.SEPARATOR + j);
         }

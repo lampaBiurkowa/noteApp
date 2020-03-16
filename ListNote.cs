@@ -12,6 +12,10 @@ namespace NoteApp
         private List<ListItem> items = new List<ListItem>();
         private int highlightedItemsCount = 0;
 
+        public ListNote() : base()
+        {
+        }
+
         public ListNote(string header, string content) : base(header, content)
         {
             highlightedItemsCount = getHighlightedItemsCount();
@@ -65,6 +69,11 @@ namespace NoteApp
             string content = components[0];
             bool highlighted = bool.Parse(components[1]);
             TryAddToList(new ListItem(content, highlighted));
+        }
+
+        public override INote BuildFromInput(string header, string content)
+        {
+            return new ListNote(header, content);
         }
 
         public void DisplayItem(ListItem item)

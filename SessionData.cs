@@ -1,17 +1,20 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
 
 namespace NoteApp
 {
     public class SessionData
     {
+        List<Note> notes = new List<Note>();
+
         public SessionData()
         {
 
         }
 
-        public void AddNote(string entry)
+        public void AddNote(Note note)
         {
-            File.AppendAllText(FileLoader.SAVE_FILE_PATH, $"{entry}\n");
+            notes.Add(note);
+            FileLoader.SaveAllNotes(notes);
         }
     }
 }
