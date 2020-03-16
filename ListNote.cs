@@ -92,7 +92,7 @@ namespace NoteApp
         private void displayMainInfo()
         {
             Console.WriteLine($"{TEXT_ICON} {ID}:");
-            Console.WriteLine($"{Header} ({items.Count} items, {highlightedItemsCount} highlighted)");
+            Console.WriteLine($"## {Header} ## ({items.Count} items, {highlightedItemsCount} highlighted)");
             Console.WriteLine($"Added {DateTime.ToString(DATE_FORMAT)}");
             Console.WriteLine($"{Content}");
         }

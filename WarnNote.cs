@@ -64,6 +64,7 @@ namespace NoteApp
 
         public override void BuildFromInput(string header, string content)
         {
+            Console.WriteLine("Type warning level (number from 1 to 3)");
             int warningLevel;
             int.TryParse(Console.ReadLine(), out warningLevel);
             Create(header, content, warningLevel);
@@ -73,7 +74,7 @@ namespace NoteApp
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"{TEXT_ICON} {ID}:");
-            Console.WriteLine($"{Header} ({getWarningLevelAsString()})");
+            Console.WriteLine($"## {Header} ## ({getWarningLevelAsString()})");
             Console.WriteLine($"Added {DateTime.ToString(DATE_FORMAT)}");
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine($"{Content}");

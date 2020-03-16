@@ -39,7 +39,7 @@ namespace NoteApp
         public override void DisplayFullInfo()
         {
             Console.WriteLine($"{TEXT_ICON} {ID}:");
-            Console.WriteLine($"{Header}");
+            Console.WriteLine($"## {Header} ##");
             Console.WriteLine($"Added {DateTime.ToString(DATE_FORMAT)}");
             Console.WriteLine($"{Content}");
         }
@@ -51,9 +51,6 @@ namespace NoteApp
 
         public override string GetSaveEntry()
         {
-            Console.WriteLine(Header);
-            Console.WriteLine(Content);
-            Console.WriteLine(DateTime.ToString(DATE_FORMAT));
             List<string> dataToSave = new List<string>() { ID, Header, Content, DateTime.ToString(DATE_FORMAT) };
             return dataToSave.Aggregate((i, j) => i + FileLoader.SEPARATOR + j);
         }

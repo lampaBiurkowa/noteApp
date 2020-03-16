@@ -49,6 +49,7 @@ namespace NoteApp
 
         public override void BuildFromInput(string header, string content)
         {
+            Console.WriteLine($"Type remind date (format {DATE_FORMAT})");
             DateTime remindDate;
             DateTime.TryParse(Console.ReadLine(), out remindDate);
             Create(header, content, remindDate);
@@ -57,7 +58,7 @@ namespace NoteApp
         public override void DisplayFullInfo()
         {
             Console.WriteLine($"{TEXT_ICON} {ID}:");
-            Console.WriteLine($"{Header} ({RemindDate.ToString(DATE_FORMAT)})");
+            Console.WriteLine($"## {Header} ## ({RemindDate.ToString(DATE_FORMAT)})");
             Console.WriteLine($"Added {DateTime.ToString(DATE_FORMAT)}");
             Console.WriteLine($"{Content}");
         }
