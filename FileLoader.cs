@@ -4,12 +4,12 @@ using System.IO;
 
 namespace NoteApp
 {
-    public static class FileLoader
+    public class FileLoader
     {
         public const char SEPARATOR = '#';
         public const string SAVE_FILE_PATH = "Save.txt";
 
-        public static List<Note> GetAllNotes()
+        public List<Note> GetAllNotes()
         {
             List<Note> result = new List<Note>();
             var lines = File.ReadAllLines(SAVE_FILE_PATH);
@@ -19,7 +19,7 @@ namespace NoteApp
             return result;
         }
 
-        private static Note getNoteFromId(string line)
+        private Note getNoteFromId(string line)
         {
             if (line.StartsWith(InfoNote.ID))
                 return new InfoNote(line);
@@ -36,11 +36,12 @@ namespace NoteApp
             }
         }
 
-        private static void handleUnrecognizedNoteError(string line)
+        private void handleUnrecognizedNoteError(string line)
         {
             Logger.PrintError($"Unrecognized note type in line {line}");
         }
-        public static void SaveAllNotes(List<Note> notes)
+
+        public void SaveAllNotes(List<Note> notes)
         {
             File.WriteAllText(SAVE_FILE_PATH, "");
             foreach (var note in notes)

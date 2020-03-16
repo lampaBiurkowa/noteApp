@@ -5,24 +5,25 @@ namespace NoteApp
 {
     public class SessionData
     {
-        static List<Note> notes = new List<Note>();
+        List<Note> notes = new List<Note>();
+        FileLoader fileLoader = new FileLoader();
 
         public SessionData()
         {
-            if (notes.Count > 0)
-                notes = FileLoader.GetAllNotes();
-            else
-                Console.WriteLine("No notes yet");
+            notes = fileLoader.GetAllNotes();
         }
 
         public void AddNote(Note note)
         {
             notes.Add(note);
-            FileLoader.SaveAllNotes(notes);
+            fileLoader.SaveAllNotes(notes);
         }
 
         public void DisplayNotes()
         {
+            if (notes.Count == 0)
+                Console.WriteLine("No notes yet");
+
             foreach (var note in notes)
                 note.DisplayFullInfo();
         }
