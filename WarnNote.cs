@@ -22,7 +22,7 @@ namespace NoteApp
             set
             {
                 if (value >= MIN_WARNING && value <= MAX_WARNING)
-                    warningLevel = WarningLevel;
+                    warningLevel = value;
                 else
                     Logger.PrintError("Wrong warning set (must be from range <1, 3>)");
             }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace NoteApp
 {
@@ -8,7 +9,10 @@ namespace NoteApp
 
         public SessionData()
         {
-            notes = FileLoader.GetAllNotes();
+            if (notes.Count > 0)
+                notes = FileLoader.GetAllNotes();
+            else
+                Console.WriteLine("No notes yet");
         }
 
         public void AddNote(Note note)

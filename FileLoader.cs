@@ -42,6 +42,7 @@ namespace NoteApp
         }
         public static void SaveAllNotes(List<Note> notes)
         {
+            File.WriteAllText(SAVE_FILE_PATH, "");
             foreach (var note in notes)
                 File.AppendAllText(SAVE_FILE_PATH, $"{note.GetSaveEntry()}\n");
         }
