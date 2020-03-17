@@ -31,6 +31,18 @@ namespace NoteApp
             }
         }
 
+        public void BuildFromInput(string header, string content)
+        {
+            Content = content;
+            CreationDate = DateTime.Now;
+            Header = header;
+
+            Console.WriteLine("Type warning level (number from 1 to 3)");
+            int warningLevel;
+            int.TryParse(Console.ReadLine(), out warningLevel);
+            WarningLevel = warningLevel;;
+        }
+
         public void DisplayFullInfo()
         {
             Console.ForegroundColor = ConsoleColor.Red;

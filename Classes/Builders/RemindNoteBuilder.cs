@@ -9,18 +9,6 @@ namespace NoteApp
         protected const int DATE_TIME_SAVE_INDEX = 3;
         protected const int REMIND_DATE_SAVE_INDEX = 4;
 
-        public INote BuildFromInput(string header, string content)
-        {
-            RemindNote note = new RemindNote { Content = content, CreationDate = DateTime.Now, Header = header };
-
-            Console.WriteLine($"Type remind date (format {Constants.DATE_FORMAT})");
-            DateTime remindDate;
-            DateTime.TryParse(Console.ReadLine(), out remindDate);
-            note.RemindDate = remindDate;
-
-            return note;
-        }
-
         public INote GetLoadedNote(string[] components)
         {
             RemindNote note = new RemindNote();

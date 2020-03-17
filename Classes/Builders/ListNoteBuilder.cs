@@ -8,11 +8,6 @@ namespace NoteApp
         protected const int CONTENT_SAVE_INDEX = 2;
         protected const int DATE_TIME_SAVE_INDEX = 3;
 
-        public INote BuildFromInput(string header, string content)
-        {
-            return new ListNote { Content = content, CreationDate = DateTime.Now, Header = header };
-        }
-
         public INote GetLoadedNote(string[] components)
         {
             ListNote note = new ListNote();

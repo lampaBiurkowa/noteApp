@@ -26,6 +26,13 @@ namespace NoteApp
             return result;
         }
 
+        public void BuildFromInput(string header, string content)
+        {
+            Content = content;
+            CreationDate = DateTime.Now;
+            Header = header;
+        }
+
         public void DisplayItem(ListItem item)
         {
             if (item.Highlighted)

@@ -13,6 +13,13 @@ namespace NoteApp
         public string Content { get; set; }
         public string Header { get; set; }
 
+        public void BuildFromInput(string header, string content)
+        {
+            Content = content;
+            CreationDate = DateTime.Now;
+            Header = header;
+        }
+
         public void DisplayFullInfo()
         {
             Console.WriteLine($"{TEXT_ICON} {ID}:");

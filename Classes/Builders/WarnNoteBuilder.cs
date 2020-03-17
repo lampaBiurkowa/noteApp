@@ -9,18 +9,6 @@ namespace NoteApp
         protected const int DATE_TIME_SAVE_INDEX = 3;
         protected const int WARNING_LEVEL_SAVE_INDEX = 4;
 
-        public INote BuildFromInput(string header, string content)
-        {
-            WarnNote note = new WarnNote { Content = content, CreationDate = DateTime.Now, Header = header };
-
-            Console.WriteLine("Type warning level (number from 1 to 3)");
-            int warningLevel;
-            int.TryParse(Console.ReadLine(), out warningLevel);
-            note.WarningLevel = warningLevel;
-
-            return note;
-        }
-
         public INote GetLoadedNote(string[] components)
         {
             WarnNote note = new WarnNote();

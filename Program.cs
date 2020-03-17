@@ -120,21 +120,22 @@ namespace NoteApp
             switch (data)
             {
                 case "info":
-                    note = new InfoNoteBuilder().BuildFromInput(header, content);
+                    note = new InfoNote();
                     break;
                 case "list":
-                    note = new ListNoteBuilder().BuildFromInput(header, content);
+                    note = new ListNote();
                     break;
                 case "remind":
-                    note = new RemindNoteBuilder().BuildFromInput(header, content);
+                    note = new RemindNote();
                     break;
                 case "warn":
-                    note = new WarnNoteBuilder().BuildFromInput(header, content);
+                    note = new WarnNote();
                     break;
                 default:
                     return null;
             }
 
+            note.BuildFromInput(header, content);
             return note;
         }
     }
