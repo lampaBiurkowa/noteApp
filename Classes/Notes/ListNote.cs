@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace NoteApp
 {
-    public class ListNote : Note, IListNote
+    public class ListNote : INote, IListNote
     {
         public const string ID = "LIST";
         private const string TEXT_ICON = "=";
@@ -12,9 +12,9 @@ namespace NoteApp
         private List<ListItem> items = new List<ListItem>();
         private int highlightedItemsCount = 0;
 
-        public ListNote() : base()
-        {
-        }
+        public DateTime CreationDate { get; set; }
+        public string Content { get; set; }
+        public string Header { get; set; }
 
         private int getHighlightedItemsCount()
         {
@@ -24,52 +24,6 @@ namespace NoteApp
                     result++;
 
             return result;
-        }
-
-        public ListNote(string line) : base(line)
-        {
-            highlightedItemsCount = getHighlightedItemsCount();
-        }
-
-        public override void BuildFromLine(string line)
-        {
-            string[] components = line.Split(FileLoader.SEPARATOR);
-            try
-            {
-                initStandardPropertiesFromComponents(components);
-                initListItemsFromComponents(components);
-            }
-            catch (Exception e)
-            {
-                handleReadingError(components.Length, DATE_TIME_SAVE_INDEX + 1);
-                Console.WriteLine(e.Message);
-            }
-        }
-
-        private void initListItemsFromComponents(string[] components)
-        {
-            for (int i = DATE_TIME_SAVE_INDEX + 1; i < components.Length; i += ListItem.SAVE_COMPONENTS_COUNT)
-                try
-                {
-                    initSingleListItemFromComponent(components, i);
-                }
-                catch (Exception e)
-                {
-                    handleReadingError(components.Length - i, ListItem.HIGHLIGHTED_SAVE_INDEX);
-                    Console.WriteLine(e.Message);
-                }
-        }
-
-        private void initSingleListItemFromComponent(string[] components, int index)
-        {
-            string content = components[0];
-            bool highlighted = bool.Parse(components[1]);
-            TryAddToList(new ListItem(content, highlighted));
-        }
-
-        public override void BuildFromInput(string header, string content)
-        {
-            Create(header, content);
         }
 
         public void DisplayItem(ListItem item)
@@ -83,7 +37,7 @@ namespace NoteApp
                 Console.ForegroundColor = ConsoleColor.White;
         }
 
-        public override void DisplayFullInfo()
+        public void DisplayFullInfo()
         {
             displayMainInfo();
             displayItemsInfo();
@@ -93,7 +47,7 @@ namespace NoteApp
         {
             Console.WriteLine($"{TEXT_ICON} {ID}:");
             Console.WriteLine($"## {Header} ## ({items.Count} items, {highlightedItemsCount} highlighted)");
-            Console.WriteLine($"Added {DateTime.ToString(DATE_FORMAT)}");
+            Console.WriteLine($"Added {CreationDate.ToString(Constants.DATE_FORMAT)}");
             Console.WriteLine($"{Content}");
         }
 
@@ -103,7 +57,7 @@ namespace NoteApp
                 DisplayItem(item);
         }
 
-        public override void DisplayShortInfo()
+        public void DisplayShortInfo()
         {
             Console.WriteLine($"{TEXT_ICON} {Header} ({items.Count} items, {highlightedItemsCount} highlighted)");
         }
@@ -138,9 +92,9 @@ namespace NoteApp
             return true;
         }
 
-        public override string GetSaveEntry()
+        public string GetSaveEntry()
         {
-            List<string> dataToSave = new List<string>() { ID, Header, Content, DateTime.ToString(DATE_FORMAT) };
+            List<string> dataToSave = new List<string>() { ID, Header, Content, CreationDate.ToString(Constants.DATE_FORMAT) };
             foreach (var item in items)
                 dataToSave.Add(getItemSaveFragment(item));
 

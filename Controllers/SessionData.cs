@@ -5,7 +5,7 @@ namespace NoteApp
 {
     public class SessionData
     {
-        List<Note> notes = new List<Note>();
+        List<INote> notes = new List<INote>();
         FileLoader fileLoader = new FileLoader();
 
         public SessionData()
@@ -13,7 +13,7 @@ namespace NoteApp
             notes = fileLoader.GetAllNotes();
         }
 
-        public void AddNote(Note note)
+        public void AddNote(INote note)
         {
             notes.Add(note);
             fileLoader.SaveAllNotes(notes);

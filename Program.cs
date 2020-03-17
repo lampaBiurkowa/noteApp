@@ -91,27 +91,25 @@ namespace NoteApp
 
         static void submitNote(string type, string header, string content)
         {
-            Note note = getDeterminedNoteObject(type);
-            note.BuildFromInput(header, content);
-            sessionData.AddNote(note);
+            sessionData.AddNote(getDeterminedNoteObject(type, header, content));
         }
 
-        static Note getDeterminedNoteObject(string data)
+        static INote getDeterminedNoteObject(string data, string header, string content)
         {
-            Note note;
+            INote note;
             switch (data)
             {
                 case "info":
-                    note = new InfoNote();
+                    note = new InfoNoteBuilder().BuildFromInput(header, content);
                     break;
                 case "list":
-                    note = new ListNote();
+                    note = new ListNoteBuilder().BuildFromInput(header, content);
                     break;
                 case "remind":
-                    note = new RemindNote();
+                    note = new RemindNoteBuilder().BuildFromInput(header, content);
                     break;
                 case "warn":
-                    note = new WarnNote();
+                    note = new WarnNoteBuilder().BuildFromInput(header, content);
                     break;
                 default:
                     return null;

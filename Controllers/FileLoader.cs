@@ -9,9 +9,9 @@ namespace NoteApp
         public const char SEPARATOR = '#';
         public const string SAVE_FILE_PATH = "Save.txt";
 
-        public List<Note> GetAllNotes()
+        public List<INote> GetAllNotes()
         {
-            List<Note> result = new List<Note>();
+            List<INote> result = new List<INote>();
             var lines = File.ReadAllLines(SAVE_FILE_PATH);
             foreach (var line in lines)
                 result.Add(getNoteFromId(line));
@@ -19,16 +19,16 @@ namespace NoteApp
             return result;
         }
 
-        private Note getNoteFromId(string line)
+        private INote getNoteFromId(string line)
         {
             if (line.StartsWith(InfoNote.ID))
-                return new InfoNote(line);
+                return new NoteBuilder().BuildFromLine(line, new InfoNoteBuilder());
             else if (line.StartsWith(ListNote.ID))
-                return new ListNote(line);
+                return new NoteBuilder().BuildFromLine(line, new ListNoteBuilder());
             else if (line.StartsWith(RemindNote.ID))
-                return new RemindNote(line);
+                return new NoteBuilder().BuildFromLine(line, new RemindNoteBuilder());
             else if (line.StartsWith(WarnNote.ID))
-                return new WarnNote(line);
+                return new NoteBuilder().BuildFromLine(line, new WarnNoteBuilder());
             else
             {
                 handleUnrecognizedNoteError(line);
@@ -41,7 +41,7 @@ namespace NoteApp
             Logger.PrintError($"Unrecognized note type in line {line}");
         }
 
-        public void SaveAllNotes(List<Note> notes)
+        public void SaveAllNotes(List<INote> notes)
         {
             File.WriteAllText(SAVE_FILE_PATH, "");
             foreach (var note in notes)
