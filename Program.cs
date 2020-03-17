@@ -17,6 +17,9 @@ namespace NoteApp
                     case "1":
                         sessionData.DisplayNotes();
                         break;
+                    case "2":
+                        handleDisplayingRecentNotes();
+                        break;
                     case "4":
                         handleAddingNoteFromUser();
                         break;
@@ -28,10 +31,27 @@ namespace NoteApp
         {
             Console.WriteLine("\n*** Diary Menu ***");
             Console.WriteLine("1 - display all notes");
-            Console.WriteLine("2 - display recent notes (not implemented yet)");
+            Console.WriteLine("2 - display recent notes");
             Console.WriteLine("3 - search for a phrase (not implemented yet)");
             Console.WriteLine("4 - add a note");
             Console.WriteLine("5 - remove a note (not implemented yet)");
+        }
+
+        static void handleDisplayingRecentNotes()
+        {
+            Console.WriteLine("Choose peroid: 1 - last hour, 2 - last day, 3 - last week");
+            switch (Console.ReadLine())
+            {
+                case "1":
+                    sessionData.DisplayRecentNotsNote(DateTime.Now.AddHours(-1));
+                    break;
+                case "2":
+                    sessionData.DisplayRecentNotsNote(DateTime.Now.AddDays(-1));
+                    break;
+                case "3":
+                    sessionData.DisplayRecentNotsNote(DateTime.Now.AddDays(-7));
+                    break;
+            }
         }
 
         static void handleAddingNoteFromUser()

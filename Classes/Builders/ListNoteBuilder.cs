@@ -2,7 +2,7 @@
 
 namespace NoteApp
 {
-    class ListNoteBuilder : INoteBuilder
+    public class ListNoteBuilder : INoteBuilder
     {
         protected const int HEADER_SAVE_INDEX = 1;
         protected const int CONTENT_SAVE_INDEX = 2;

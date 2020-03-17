@@ -2,7 +2,7 @@
 
 namespace NoteApp
 {
-    class NoteBuilder
+    public class NoteBuilder
     {
         public INote BuildFromLine(string line, INoteBuilder builder)
         {

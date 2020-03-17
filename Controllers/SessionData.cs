@@ -19,6 +19,21 @@ namespace NoteApp
             fileLoader.SaveAllNotes(notes);
         }
 
+        public void DisplayRecentNotsNote(DateTime borderDate)
+        {
+            bool displayed = false;
+
+            foreach (var note in notes)
+                if (note.CreationDate > borderDate)
+                {
+                    displayed = true;
+                    note.DisplayFullInfo();
+                }
+
+            if (!displayed)
+                Console.WriteLine("No notes yet");
+        }
+
         public void DisplayNotes()
         {
             if (notes.Count == 0)

@@ -2,7 +2,7 @@
 
 namespace NoteApp
 {
-    class WarnNoteBuilder : INoteBuilder
+    public class WarnNoteBuilder : INoteBuilder
     {
         protected const int HEADER_SAVE_INDEX = 1;
         protected const int CONTENT_SAVE_INDEX = 2;
