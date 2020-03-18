@@ -1,9 +1,8 @@
 ﻿namespace NoteApp
 {
-    interface IListNote
+    public interface IListNote : INote
     {
-        bool TryAddToList(ListItem item);
-        void DisplayItem(ListItem item);
-        bool TryRemoveFromList(ListItem item);
+        bool TryAddToList(IListItem item);
+        bool TryRemoveFromList(IListItem item);
     }
 }

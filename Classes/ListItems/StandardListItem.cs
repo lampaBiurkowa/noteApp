@@ -2,7 +2,7 @@
 
 namespace NoteApp
 {
-    public class ListItem : IEquatable<ListItem>
+    public class StandardListItem : IListItem, IEquatable<StandardListItem>
     {
         public const int SAVE_COMPONENTS_COUNT = 2;
         public const int CONTENT_SAVE_INDEX = 0;
@@ -11,13 +11,13 @@ namespace NoteApp
         public string Content { get; set; }
         public bool Highlighted { get; set; }
 
-        public ListItem(string content, bool highlighted)
+        public StandardListItem(string content, bool highlighted)
         {
             Content = content;
             Highlighted = highlighted;
         }
 
-        public bool Equals(ListItem compared)
+        public bool Equals(StandardListItem compared)
         {
             return Highlighted == compared.Highlighted && Content == compared.Content;
         }

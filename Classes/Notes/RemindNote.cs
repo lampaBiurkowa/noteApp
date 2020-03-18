@@ -13,6 +13,8 @@ namespace NoteApp
         public DateTime CreationDate { get; set; }
         public string Content { get; set; }
         public string Header { get; set; }
+        public ConsoleColor ContentColor => ConsoleColor.White;
+        public ConsoleColor HeaderColor => ConsoleColor.Cyan;
 
         public void BuildFromInput(string header, string content)
         {
@@ -26,17 +28,20 @@ namespace NoteApp
             RemindDate = remindDate;
         }
 
-        public void DisplayFullInfo()
+        public List<string> GetFullInfo()
         {
-            Console.WriteLine($"{TEXT_ICON} {ID}:");
-            Console.WriteLine($"## {Header} ## ({RemindDate.ToString(Constants.DATE_FORMAT)})");
-            Console.WriteLine($"Added {CreationDate.ToString(Constants.DATE_FORMAT)}");
-            Console.WriteLine($"{Content}");
+            List<string> result = new List<string>();
+            result.Add($"{TEXT_ICON} {ID}");
+            result.Add($"## {Header} ## ({RemindDate.ToString(Constants.DATE_FORMAT)})");
+            result.Add($"Added {CreationDate.ToString(Constants.DATE_FORMAT)}");
+            result.Add(Content);
+
+            return result;
         }
 
-        public void DisplayShortInfo()
+        public string GetShortInfo()
         {
-            Console.WriteLine($"{TEXT_ICON} {Header} ({RemindDate.ToString(Constants.DATE_FORMAT)})");
+            return $"{TEXT_ICON} {Header} ({RemindDate.ToString(Constants.DATE_FORMAT)})";
         }
 
         public string GetSaveEntry()

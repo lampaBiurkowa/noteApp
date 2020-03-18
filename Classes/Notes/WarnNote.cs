@@ -8,7 +8,6 @@ namespace NoteApp
     {
         private const int MAX_WARNING = 3;
         private const int MIN_WARNING = 1;
-        private const int WARNING_LEVEL_SAVE_INDEX = 4;
 
         private const char WARNING_LEVEL_STRING_INDICATOR = '*';
         private const string TEXT_ICON = "/!\\";
@@ -19,6 +18,9 @@ namespace NoteApp
         public DateTime CreationDate { get; set; }
         public string Content { get; set; }
         public string Header { get; set; }
+        public ConsoleColor ContentColor => ConsoleColor.White;
+        public ConsoleColor HeaderColor => ConsoleColor.Red;
+
         public int WarningLevel
         {
             get => warningLevel;
@@ -40,24 +42,23 @@ namespace NoteApp
             Console.WriteLine("Type warning level (number from 1 to 3)");
             int warningLevel;
             int.TryParse(Console.ReadLine(), out warningLevel);
-            WarningLevel = warningLevel;;
+            WarningLevel = warningLevel;
         }
 
-        public void DisplayFullInfo()
+        public List<string> GetFullInfo()
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"{TEXT_ICON} {ID}:");
-            Console.WriteLine($"## {Header} ## ({getWarningLevelAsString()})");
-            Console.WriteLine($"Added {CreationDate.ToString(Constants.DATE_FORMAT)}");
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine($"{Content}");
+            List<string> result = new List<string>();
+            result.Add($"{TEXT_ICON} {ID}");
+            result.Add($"## {Header} ## ({getWarningLevelAsString()})");
+            result.Add($"Added {CreationDate.ToString(Constants.DATE_FORMAT)}");
+            result.Add(Content);
+
+            return result;
         }
 
-        public void DisplayShortInfo()
+        public string GetShortInfo()
         {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"{TEXT_ICON} {Header} ({getWarningLevelAsString()})");
-            Console.ForegroundColor = ConsoleColor.White;
+            return $"{TEXT_ICON} {Header} ({getWarningLevelAsString()})";
         }
 
         private string getWarningLevelAsString()

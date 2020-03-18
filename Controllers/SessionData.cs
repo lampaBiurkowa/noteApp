@@ -21,13 +21,14 @@ namespace NoteApp
 
         public void DisplayRecentNotsNote(DateTime borderDate)
         {
+            NoteDisplayer displayer = new NoteDisplayer();
             bool displayed = false;
 
             foreach (var note in notes)
                 if (note.CreationDate > borderDate)
                 {
                     displayed = true;
-                    note.DisplayFullInfo();
+                    displayer.DisplayFullInfo(note);
                 }
 
             if (!displayed)
@@ -39,8 +40,9 @@ namespace NoteApp
             if (notes.Count == 0)
                 Console.WriteLine("No notes yet");
 
+            NoteDisplayer displayer = new NoteDisplayer();
             foreach (var note in notes)
-                note.DisplayFullInfo();
+                displayer.DisplayFullInfo(note);
         }
     }
 }

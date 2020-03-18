@@ -4,17 +4,19 @@ using System.Linq;
 
 namespace NoteApp
 {
-    public class ListNote : INote, IListNote
+    public class ListNote : IListNote
     {
         public const string ID = "LIST";
         private const string TEXT_ICON = "=";
 
-        private List<ListItem> items = new List<ListItem>();
+        private List<StandardListItem> items = new List<StandardListItem>();
         private int highlightedItemsCount = 0;
 
         public DateTime CreationDate { get; set; }
         public string Content { get; set; }
         public string Header { get; set; }
+        public ConsoleColor ContentColor => ConsoleColor.White;
+        public ConsoleColor HeaderColor => ConsoleColor.Red;
 
         private int getHighlightedItemsCount()
         {
@@ -33,58 +35,52 @@ namespace NoteApp
             Header = header;
         }
 
-        public void DisplayItem(ListItem item)
+        public List<string> GetFullInfo()
         {
-            if (item.Highlighted)
-                Console.ForegroundColor = ConsoleColor.Yellow;
-
-            Console.WriteLine($"{item.Content}");
-
-            if (item.Highlighted)
-                Console.ForegroundColor = ConsoleColor.White;
+            return (List<string>)getMainInfo().Concat(getItemsInfo());
         }
 
-        public void DisplayFullInfo()
+        private List<string> getMainInfo()
         {
-            displayMainInfo();
-            displayItemsInfo();
+            List<string> result = new List<string>();
+            result.Add($"{TEXT_ICON} {ID}");
+            result.Add($"## {Header} ## ({items.Count} items, {highlightedItemsCount} highlighted)");
+            result.Add($"Added {CreationDate.ToString(Constants.DATE_FORMAT)}");
+            result.Add(Content);
+
+            return result;
         }
 
-        private void displayMainInfo()
+        private List<string> getItemsInfo()
         {
-            Console.WriteLine($"{TEXT_ICON} {ID}:");
-            Console.WriteLine($"## {Header} ## ({items.Count} items, {highlightedItemsCount} highlighted)");
-            Console.WriteLine($"Added {CreationDate.ToString(Constants.DATE_FORMAT)}");
-            Console.WriteLine($"{Content}");
-        }
-
-        private void displayItemsInfo()
-        {
+            List<string> result = new List<string>();
             foreach (var item in items)
-                DisplayItem(item);
+                result.Add(item.Content);
+
+            return result;
         }
 
-        public void DisplayShortInfo()
+        public string GetShortInfo()
         {
-            Console.WriteLine($"{TEXT_ICON} {Header} ({items.Count} items, {highlightedItemsCount} highlighted)");
+            return $"{TEXT_ICON} {Header} ({items.Count} items, {highlightedItemsCount} highlighted)";
         }
 
-        public bool TryAddToList(ListItem item)
+        public bool TryAddToList(IListItem item)
         {
             if (items.Contains(item))
             {
                 Logger.PrintError($"Item: {item} (Content = {item.Content}, Highlighted = {item.Highlighted}) already exists");
                 return false;
             }
-
-            items.Add(item);
+            
+            items.Add((StandardListItem)item);
             if (item.Highlighted)
                 highlightedItemsCount++;
 
             return true;
         }
 
-        public bool TryRemoveFromList(ListItem item)
+        public bool TryRemoveFromList(IListItem item)
         {
             if (!items.Contains(item))
             {
@@ -92,7 +88,7 @@ namespace NoteApp
                 return false;
             }
 
-            items.Remove(item);
+            items.Remove((StandardListItem)item);
             if (item.Highlighted)
                 highlightedItemsCount--;
 
@@ -108,7 +104,7 @@ namespace NoteApp
             return dataToSave.Aggregate((i, j) => i + FileLoader.SEPARATOR + j);
         }
 
-        private string getItemSaveFragment(ListItem item)
+        private string getItemSaveFragment(IListItem item)
         {
             List<string> dataToSave = new List<string>() { item.Content, item.Highlighted.ToString() };
             return dataToSave.Aggregate((i, j) => i + FileLoader.SEPARATOR + j);
