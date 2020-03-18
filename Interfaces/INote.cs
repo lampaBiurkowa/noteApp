@@ -12,7 +12,8 @@ namespace NoteApp
         ConsoleColor ContentColor { get; }
 
         void BuildFromInput(string header, string content);
-        List<string> GetFullInfo();
+        List<string> GetFullHeader();
+        List<string> GetAdditionalContent();
         string GetShortInfo();
         string GetSaveEntry();
     }

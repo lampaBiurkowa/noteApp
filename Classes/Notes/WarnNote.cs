@@ -45,15 +45,18 @@ namespace NoteApp
             WarningLevel = warningLevel;
         }
 
-        public List<string> GetFullInfo()
+        public List<string> GetFullHeader()
         {
             List<string> result = new List<string>();
             result.Add($"{TEXT_ICON} {ID}");
             result.Add($"## {Header} ## ({getWarningLevelAsString()})");
-            result.Add($"Added {CreationDate.ToString(Constants.DATE_FORMAT)}");
-            result.Add(Content);
 
             return result;
+        }
+
+        public List<string> GetAdditionalContent()
+        {
+            return new List<string> { $"Warning level: {WarningLevel}" };
         }
 
         public string GetShortInfo()

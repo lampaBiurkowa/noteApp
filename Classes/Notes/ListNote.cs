@@ -35,23 +35,16 @@ namespace NoteApp
             Header = header;
         }
 
-        public List<string> GetFullInfo()
-        {
-            return (List<string>)getMainInfo().Concat(getItemsInfo());
-        }
-
-        private List<string> getMainInfo()
+        public List<string> GetFullHeader()
         {
             List<string> result = new List<string>();
             result.Add($"{TEXT_ICON} {ID}");
             result.Add($"## {Header} ## ({items.Count} items, {highlightedItemsCount} highlighted)");
-            result.Add($"Added {CreationDate.ToString(Constants.DATE_FORMAT)}");
-            result.Add(Content);
 
             return result;
         }
 
-        private List<string> getItemsInfo()
+        public List<string> GetAdditionalContent()
         {
             List<string> result = new List<string>();
             foreach (var item in items)
