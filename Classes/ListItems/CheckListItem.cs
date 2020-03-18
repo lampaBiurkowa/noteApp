@@ -11,18 +11,21 @@ namespace NoteApp
 
         public bool Checked { get; set; }
         public string Content { get; set; }
-        public bool Highlighted { get; set; }
 
-        public CheckListItem(bool isChecked, string content, bool highlighted)
+        public CheckListItem(bool isChecked, string content)
         {
             Checked = isChecked;
             Content = content;
-            Highlighted = highlighted;
+        }
+
+        public string GetDisplayableContent()
+        {
+            return Checked ? $"(v) {Content}" : $"(x) {Content}";
         }
 
         public bool Equals(CheckListItem compared)
-        {;
-            return Checked == compared.Checked && Highlighted == compared.Highlighted && Content == compared.Content;
+        {
+            return Checked == compared.Checked && Checked == compared.Checked && Content == compared.Content;
         }
     }
 }

@@ -9,17 +9,22 @@ namespace NoteApp
         public const int HIGHLIGHTED_SAVE_INDEX = 1;
 
         public string Content { get; set; }
-        public bool Highlighted { get; set; }
+        public bool Checked { get; set; }
 
-        public StandardListItem(string content, bool highlighted)
+        public StandardListItem(bool isChecked, string content)
         {
             Content = content;
-            Highlighted = highlighted;
+            Checked = isChecked;
+        }
+
+        public string GetDisplayableContent()
+        {
+            return Checked ? $"** {Content} **" : Content;
         }
 
         public bool Equals(StandardListItem compared)
         {
-            return Highlighted == compared.Highlighted && Content == compared.Content;
+            return Checked == compared.Checked && Content == compared.Content;
         }
     }
 }
