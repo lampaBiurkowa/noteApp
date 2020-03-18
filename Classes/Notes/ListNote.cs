@@ -9,20 +9,40 @@ namespace NoteApp
         public const string ID = "LIST";
         private const string TEXT_ICON = "=";
 
-        public List<IListItem> Items { get; set; }
-        public int HighlightedItemsCount { get; private set; } = 0;
+        public List<IListItem> Items { get; set; } = new List<IListItem>();
+        public int HighlightedItemsCount => Items.Count(element => element.Checked);
 
         public DateTime CreationDate { get; set; }
         public string Content { get; set; }
         public string Header { get; set; }
         public ConsoleColor ContentColor => ConsoleColor.White;
-        public ConsoleColor HeaderColor => ConsoleColor.Red;
+        public ConsoleColor HeaderColor => ConsoleColor.Yellow;
 
         public void BuildFromInput(string header, string content)
         {
             Content = content;
             CreationDate = DateTime.Now;
             Header = header;
+            getItems();
+        }
+
+        private void getItems()
+        {
+            Console.WriteLine("Type count of items in list:");
+            int count;
+            int.TryParse(Console.ReadLine(), out count);
+            for (int i = 0; i < count; i++)
+                handleAddingItem();
+        }
+
+        private void handleAddingItem()
+        {
+            Console.WriteLine("Type item content");
+            string content = Console.ReadLine();
+            Console.WriteLine("Is checked? (Y/n)");
+            bool isChecked = Console.ReadLine() == "n" ? false : true;
+            ItemsModifier modifier = new ItemsModifier();
+            modifier.TryAddToList(this, new StandardListItem(isChecked, content)); // hmm
         }
 
         public List<string> GetFullHeader()
@@ -48,42 +68,13 @@ namespace NoteApp
             return $"{TEXT_ICON} {Header} ({Items.Count} items, {HighlightedItemsCount} highlighted)";
         }
 
-        public bool TryAddToList(IListItem item)
-        {
-            if (Items.Contains(item))
-            {
-                Logger.PrintError($"Item: {item} (Content = {item.Content}, Highlighted = {item.Checked}) already exists");
-                return false;
-            }
-
-            Items.Add(item);
-            if (item.Checked)
-                HighlightedItemsCount++;
-
-            return true;
-        }
-
-        public bool TryRemoveFromList(IListItem item)
-        {
-            if (!Items.Contains(item))
-            {
-                Logger.PrintError($"Item: {item} (Content = {item.Content}, Highlighted = {item.Checked}) does not exist");
-                return false;
-            }
-
-            Items.Remove(item);
-            if (item.Checked)
-                HighlightedItemsCount--;
-
-            return true;
-        }
-
         public string GetSaveEntry()
         {
             List<string> dataToSave = new List<string>() { ID, Header, Content, CreationDate.ToString(Constants.DATE_FORMAT) };
             foreach (var item in Items)
                 dataToSave.Add(getItemSaveFragment(item));
 
+            System.Console.WriteLine(dataToSave.Aggregate((i, j) => i + FileLoader.SEPARATOR + j));
             return dataToSave.Aggregate((i, j) => i + FileLoader.SEPARATOR + j);
         }
 

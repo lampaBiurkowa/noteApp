@@ -41,7 +41,8 @@ namespace NoteApp
         {
             string content = components[0];
             bool highlighted = bool.Parse(components[1]);
-            note.TryAddToList(new StandardListItem(content, highlighted));
+            ItemsModifier modifier = new ItemsModifier();
+            modifier.TryAddToList(note, new StandardListItem(highlighted, content));
             return note;
         }
 

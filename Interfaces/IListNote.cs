@@ -4,9 +4,7 @@ namespace NoteApp
 {
     public interface IListNote : INote
     {
+        List<IListItem> Items { get; set; }
         int HighlightedItemsCount { get; }
-
-        bool TryAddToList(IListItem item);
-        bool TryRemoveFromList(IListItem item);
     }
 }
