@@ -7,7 +7,15 @@ namespace NoteApp
     {
         private const ConsoleColor DEFAULT_COLOR = ConsoleColor.White;
 
-        public void DisplayFullInfo(INote note)
+        public void DisplayMainInfo(INote note)
+        {
+            displayFullInfoHeader(note);
+            displayFullInfoContent(note);
+
+            Console.ForegroundColor = DEFAULT_COLOR;
+        }
+
+        public void DisplayFullList(IListNote note)
         {
             displayFullInfoHeader(note);
             displayFullInfoContent(note);
@@ -31,7 +39,7 @@ namespace NoteApp
             Console.WriteLine(note.Content);
         }
 
-        private void displayAdditionalInfoContent(INote note)
+        private void displayAdditionalInfoContent(IListNote note)
         {
             List<string> noteAdditionlContent = note.GetAdditionalContent();
             for (int i = 0; i < noteAdditionlContent.Count; i++)

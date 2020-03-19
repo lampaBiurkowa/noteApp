@@ -66,7 +66,7 @@ namespace NoteApp
 
         public string GetListItemContent(ListItem item)
         {
-            return item.Checked ? $"** {item.Content} **" : item.Content;
+            return item.Checked ? $"- ** {item.Content} **" : $"- {item.Content}";
         }
 
         public string GetShortInfo()

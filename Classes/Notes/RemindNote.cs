@@ -37,11 +37,6 @@ namespace NoteApp
             return result;
         }
 
-        public List<string> GetAdditionalContent()
-        {
-            return new List<string>();
-        }
-
         public string GetShortInfo()
         {
             return $"{TEXT_ICON} {Header} ({RemindDate.ToString(Constants.DATE_FORMAT)})";

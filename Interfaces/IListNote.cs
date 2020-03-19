@@ -7,6 +7,7 @@ namespace NoteApp
         List<ListItem> Items { get; set; }
         int HighlightedItemsCount { get; }
 
+        List<string> GetAdditionalContent();
         string GetListItemContent(ListItem item);
         List<ListItem> GetSortedItems();
     }

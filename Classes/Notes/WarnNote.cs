@@ -54,11 +54,6 @@ namespace NoteApp
             return result;
         }
 
-        public List<string> GetAdditionalContent()
-        {
-            return new List<string> { $"Warning level: {WarningLevel}" };
-        }
-
         public string GetShortInfo()
         {
             return $"{TEXT_ICON} {Header} ({getWarningLevelAsString()})";

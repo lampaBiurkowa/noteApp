@@ -28,7 +28,7 @@ namespace NoteApp
                 if (note.CreationDate > borderDate)
                 {
                     displayed = true;
-                    displayer.DisplayFullInfo(note);
+                    displayer.DisplayMainInfo(note);
                 }
 
             if (!displayed)
@@ -42,7 +42,18 @@ namespace NoteApp
 
             NoteDisplayer displayer = new NoteDisplayer();
             foreach (var note in notes)
-                displayer.DisplayFullInfo(note);
+                displayer.DisplayMainInfo(note);
+        }
+
+        public void DisplayListNotes()
+        {
+            if (notes.Count == 0)
+                Console.WriteLine("No list notes yet");
+
+            NoteDisplayer displayer = new NoteDisplayer();
+            foreach (var note in notes)
+                if (note is IListNote)
+                    displayer.DisplayFullList((IListNote)note);
         }
     }
 }

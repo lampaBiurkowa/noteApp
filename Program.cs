@@ -18,9 +18,12 @@ namespace NoteApp
                         sessionData.DisplayNotes();
                         break;
                     case "2":
+                        sessionData.DisplayListNotes();
+                        break;
+                    case "3":
                         handleDisplayingRecentNotes();
                         break;
-                    case "4":
+                    case "5":
                         handleAddingNoteFromUser();
                         break;
                 }
@@ -31,10 +34,11 @@ namespace NoteApp
         {
             Console.WriteLine("\n*** Diary Menu ***");
             Console.WriteLine("1 - display all notes");
-            Console.WriteLine("2 - display recent notes");
-            Console.WriteLine("3 - search for a phrase (not implemented yet)");
-            Console.WriteLine("4 - add a note");
-            Console.WriteLine("5 - remove a note (not implemented yet)");
+            Console.WriteLine("2 - display unwrapped list notes");
+            Console.WriteLine("3 - display recent notes");
+            Console.WriteLine("4 - search for a phrase (not implemented yet)");
+            Console.WriteLine("5 - add a note");
+            Console.WriteLine("6 - remove a note (not implemented yet)");
         }
 
         static void handleDisplayingRecentNotes()
