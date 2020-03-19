@@ -2,7 +2,7 @@
 
 namespace NoteApp
 {
-    public class StandardListItem : IListItem, IEquatable<StandardListItem>
+    public class StandardListItem : IListItem
     {
         public const int SAVE_COMPONENTS_COUNT = 2;
         public const int CONTENT_SAVE_INDEX = 0;
@@ -22,7 +22,7 @@ namespace NoteApp
             return Checked ? $"** {Content} **" : Content;
         }
 
-        public bool Equals(StandardListItem compared)
+        public bool Equals(IListItem compared)
         {
             return Checked == compared.Checked && Content == compared.Content;
         }

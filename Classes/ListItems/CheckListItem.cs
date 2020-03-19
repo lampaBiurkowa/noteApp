@@ -2,7 +2,7 @@
 
 namespace NoteApp
 {
-    public class CheckListItem : IListItem, IEquatable<CheckListItem>
+    public class CheckListItem : IListItem
     {
         public const int SAVE_COMPONENTS_COUNT = 3;
         public const int CONTENT_SAVE_INDEX = 0;
@@ -23,9 +23,9 @@ namespace NoteApp
             return Checked ? $"(v) {Content}" : $"(x) {Content}";
         }
 
-        public bool Equals(CheckListItem compared)
+        public bool Equals(IListItem compared)
         {
-            return Checked == compared.Checked && Checked == compared.Checked && Content == compared.Content;
+            return Checked == compared.Checked && Content == compared.Content;
         }
     }
 }
