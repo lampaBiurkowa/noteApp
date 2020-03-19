@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -73,13 +74,17 @@ namespace NoteApp
             return $"{TEXT_ICON} {Header} ({Items.Count} items, {HighlightedItemsCount} highlighted)";
         }
 
+        public List<ListItem> GetSortedItems()
+        {
+            return Items.OrderBy(e => e.Content).ToList();
+        }
+
         public string GetSaveEntry()
         {
             List<string> dataToSave = new List<string>() { ID, Header, Content, CreationDate.ToString(Constants.DATE_FORMAT) };
             foreach (var item in Items)
                 dataToSave.Add(getItemSaveFragment(item));
 
-            System.Console.WriteLine(dataToSave.Aggregate((i, j) => i + FileLoader.SEPARATOR + j));
             return dataToSave.Aggregate((i, j) => i + FileLoader.SEPARATOR + j);
         }
 
