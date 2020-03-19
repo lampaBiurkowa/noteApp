@@ -43,7 +43,7 @@ namespace NoteApp
             Console.WriteLine("Is checked? (Y/n)");
             bool isChecked = Console.ReadLine() == "n" ? false : true;
             ItemsModifier modifier = new ItemsModifier();
-            modifier.TryAddToList(this, new ListItem(isChecked, content)); // hmm
+            modifier.TryAddToList(this, new ListItem(isChecked, content));
         }
 
         public List<string> GetFullHeader()
