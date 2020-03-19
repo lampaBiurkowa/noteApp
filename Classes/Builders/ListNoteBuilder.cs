@@ -24,7 +24,7 @@ namespace NoteApp
 
         private ListNote initListItemsFromComponents(string[] components, ListNote source)
         {
-            for (int i = DATE_TIME_SAVE_INDEX + 1; i < components.Length; i += StandardListItem.SAVE_COMPONENTS_COUNT)
+            for (int i = DATE_TIME_SAVE_INDEX + 1; i < components.Length; i += ListItem.SAVE_COMPONENTS_COUNT)
                 try
                 {
                     source = initSingleListItemFromComponent(components, source);
@@ -42,7 +42,7 @@ namespace NoteApp
             string content = components[0];
             bool highlighted = bool.Parse(components[1]);
             ItemsModifier modifier = new ItemsModifier();
-            modifier.TryAddToList(note, new StandardListItem(highlighted, content));
+            modifier.TryAddToList(note, new ListItem(highlighted, content));
             return note;
         }
 

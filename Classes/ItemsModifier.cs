@@ -2,7 +2,7 @@
 {
     public class ItemsModifier
     {
-        public bool TryAddToList(IListNote note, IListItem item)
+        public bool TryAddToList(IListNote note, ListItem item)
         {
             if (note.Items.Contains(item))
             {
@@ -14,7 +14,7 @@
             return true;
         }
 
-        public bool TryRemoveFromList(IListNote note, IListItem item)
+        public bool TryRemoveFromList(IListNote note, ListItem item)
         {
             if (!note.Items.Contains(item))
             {

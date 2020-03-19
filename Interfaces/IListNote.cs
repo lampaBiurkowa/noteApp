@@ -4,7 +4,9 @@ namespace NoteApp
 {
     public interface IListNote : INote
     {
-        List<IListItem> Items { get; set; }
+        List<ListItem> Items { get; set; }
         int HighlightedItemsCount { get; }
+
+        string GetListItemContent(ListItem item);
     }
 }

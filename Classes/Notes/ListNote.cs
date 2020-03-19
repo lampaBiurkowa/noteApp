@@ -9,7 +9,7 @@ namespace NoteApp
         public const string ID = "LIST";
         private const string TEXT_ICON = "=";
 
-        public List<IListItem> Items { get; set; } = new List<IListItem>();
+        public List<ListItem> Items { get; set; } = new List<ListItem>();
         public int HighlightedItemsCount => Items.Count(element => element.Checked);
 
         public DateTime CreationDate { get; set; }
@@ -42,7 +42,7 @@ namespace NoteApp
             Console.WriteLine("Is checked? (Y/n)");
             bool isChecked = Console.ReadLine() == "n" ? false : true;
             ItemsModifier modifier = new ItemsModifier();
-            modifier.TryAddToList(this, new StandardListItem(isChecked, content)); // hmm
+            modifier.TryAddToList(this, new ListItem(isChecked, content)); // hmm
         }
 
         public List<string> GetFullHeader()
@@ -58,9 +58,14 @@ namespace NoteApp
         {
             List<string> result = new List<string>();
             foreach (var item in Items)
-                result.Add(item.GetDisplayableContent());
+                result.Add(item.Content);
 
             return result;
+        }
+
+        public string GetListItemContent(ListItem item)
+        {
+            return item.Checked ? $"** {item.Content} **" : item.Content;
         }
 
         public string GetShortInfo()
@@ -78,7 +83,7 @@ namespace NoteApp
             return dataToSave.Aggregate((i, j) => i + FileLoader.SEPARATOR + j);
         }
 
-        private string getItemSaveFragment(IListItem item)
+        private string getItemSaveFragment(ListItem item)
         {
             List<string> dataToSave = new List<string>() { item.Content, item.Checked.ToString() };
             return dataToSave.Aggregate((i, j) => i + FileLoader.SEPARATOR + j);
