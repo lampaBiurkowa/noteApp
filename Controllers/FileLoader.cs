@@ -21,7 +21,9 @@ namespace NoteApp
 
         private INote getNoteFromId(string line)
         {
-            if (line.StartsWith(InfoNote.ID))
+            if (line.StartsWith(CheckListNote.ID))
+                return new NoteBuilder().BuildFromLine(line, new CheckListNoteBuilder());
+            else if (line.StartsWith(InfoNote.ID))
                 return new NoteBuilder().BuildFromLine(line, new InfoNoteBuilder());
             else if (line.StartsWith(ListNote.ID))
                 return new NoteBuilder().BuildFromLine(line, new ListNoteBuilder());

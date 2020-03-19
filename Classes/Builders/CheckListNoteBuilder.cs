@@ -2,7 +2,7 @@
 
 namespace NoteApp
 {
-    public class ListNoteBuilder : INoteBuilder
+    public class CheckListNoteBuilder : INoteBuilder
     {
         protected const int HEADER_SAVE_INDEX = 1;
         protected const int CONTENT_SAVE_INDEX = 2;
@@ -10,7 +10,7 @@ namespace NoteApp
 
         public INote GetLoadedNote(string[] components)
         {
-            ListNote note = new ListNote();
+            CheckListNote note = new CheckListNote();
             note.Header = components[HEADER_SAVE_INDEX];
             note.Content = components[CONTENT_SAVE_INDEX];
 

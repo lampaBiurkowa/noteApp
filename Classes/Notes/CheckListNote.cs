@@ -4,10 +4,10 @@ using System.Linq;
 
 namespace NoteApp
 {
-    public class ListNote : IListNote
+    public class CheckListNote : IListNote
     {
-        public const string ID = "LIST";
-        private const string TEXT_ICON = "===";
+        public const string ID = "CHECKLIST";
+        private const string TEXT_ICON = "=v=";
 
         public List<ListItem> Items { get; set; } = new List<ListItem>();
         public int CheckedItemsCount => Items.Count(element => element.Checked);
@@ -15,8 +15,8 @@ namespace NoteApp
         public DateTime CreationDate { get; set; }
         public string Content { get; set; }
         public string Header { get; set; }
-        public ConsoleColor ContentColor => ConsoleColor.White;
-        public ConsoleColor HeaderColor => ConsoleColor.Yellow;
+        public ConsoleColor ContentColor => getColorForPercentage(getPercentage());
+        public ConsoleColor HeaderColor => ConsoleColor.DarkBlue;
 
         public void BuildFromInput(string header, string content)
         {
@@ -30,7 +30,7 @@ namespace NoteApp
         {
             List<string> result = new List<string>();
             result.Add($"{TEXT_ICON} {ID}");
-            result.Add($"## {Header} ## ({Items.Count} items, {CheckedItemsCount} highlighted)");
+            result.Add($"## {Header} ## ({Items.Count} items, {CheckedItemsCount} checked)");
 
             return result;
         }
@@ -41,6 +41,7 @@ namespace NoteApp
             foreach (var item in Items)
                 result.Add(GetListItemContent(item));
 
+            result.Add($"{getPercentage()}% done");
             return result;
         }
 
@@ -49,9 +50,28 @@ namespace NoteApp
             return item.Checked ? $"- ** {item.Content} **" : $"- {item.Content}";
         }
 
+        private float getPercentage()
+        {
+            return ((float)CheckedItemsCount / Items.Count) * 100;
+        }
+
+        private ConsoleColor getColorForPercentage(float percantage)
+        {
+            Dictionary<int, ConsoleColor> thresholds = new Dictionary<int, ConsoleColor>()
+            {
+                { 0, ConsoleColor.Red },
+                { 40, ConsoleColor.Yellow },
+                { 80, ConsoleColor.Blue },
+                { 100, ConsoleColor.Green }
+            };
+
+            var bigger = thresholds.Where(element => element.Key <= percantage);
+            return bigger.Any() ? bigger.Aggregate((e1, e2) => e1.Key > e2.Key ? e1 : e2).Value : ConsoleColor.Red;
+        }
+
         public string GetShortInfo()
         {
-            return $"{TEXT_ICON} {Header} ({Items.Count} items, {CheckedItemsCount} highlighted)";
+            return $"{TEXT_ICON} {Header} ({Items.Count} items, {CheckedItemsCount} checked ({getPercentage()}% done))";
         }
 
         public List<ListItem> GetSortedItems()

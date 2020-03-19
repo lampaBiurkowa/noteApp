@@ -26,6 +26,7 @@ namespace NoteApp
             noteMap.Add(2, "list");
             noteMap.Add(3, "remind");
             noteMap.Add(4, "warn");
+            noteMap.Add(5, "check");
 
             return noteMap;
         }
@@ -73,6 +74,9 @@ namespace NoteApp
             INote note;
             switch (data)
             {
+                case "check":
+                    note = new CheckListNote();
+                    break;
                 case "info":
                     note = new InfoNote();
                     break;
@@ -86,11 +90,31 @@ namespace NoteApp
                     note = new WarnNote();
                     break;
                 default:
-                    return null;
+                    Logger.PrintError($"Unkonwn note {data}");
+                    throw new Exception($"Unknown note {data}");
             }
 
             note.BuildFromInput(header, content);
             return note;
+        }
+
+        public void BuildListItems(IListNote note)
+        {
+            Console.WriteLine("Type count of items in list:");
+            int count;
+            int.TryParse(Console.ReadLine(), out count);
+            for (int i = 0; i < count; i++)
+                handleAddingItem(note);
+        }
+
+        private void handleAddingItem(IListNote note)
+        {
+            Console.WriteLine("Type item content");
+            string content = Console.ReadLine();
+            Console.WriteLine("Is checked? (Y/n)");
+            bool isChecked = Console.ReadLine() == "n" ? false : true;
+            ItemsModifier modifier = new ItemsModifier();
+            modifier.TryAddToList(note, new ListItem(isChecked, content));
         }
     }
 }

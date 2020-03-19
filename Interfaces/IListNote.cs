@@ -5,7 +5,7 @@ namespace NoteApp
     public interface IListNote : INote
     {
         List<ListItem> Items { get; set; }
-        int HighlightedItemsCount { get; }
+        int CheckedItemsCount { get; }
 
         List<string> GetAdditionalContent();
         string GetListItemContent(ListItem item);
