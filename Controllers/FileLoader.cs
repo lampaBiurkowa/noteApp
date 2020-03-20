@@ -11,6 +11,7 @@ namespace NoteApp
 
         public List<INote> GetAllNotes()
         {
+            createFileIfDoesntExist();
             List<INote> result = new List<INote>();
             var lines = File.ReadAllLines(SAVE_FILE_PATH);
             foreach (var line in lines)
@@ -19,17 +20,23 @@ namespace NoteApp
             return result;
         }
 
+        void createFileIfDoesntExist()
+        {
+            if (!File.Exists(SAVE_FILE_PATH))
+                File.WriteAllText(SAVE_FILE_PATH, "");
+        }
+
         private INote getNoteFromId(string line)
         {
-            if (line.StartsWith(CheckListNote.ID))
+            if (line.StartsWith(CheckListNote.NAME_ID))
                 return new NoteBuilder().BuildFromLine(line, new CheckListNoteBuilder());
-            else if (line.StartsWith(InfoNote.ID))
+            else if (line.StartsWith(InfoNote.NAME_ID))
                 return new NoteBuilder().BuildFromLine(line, new InfoNoteBuilder());
-            else if (line.StartsWith(ListNote.ID))
+            else if (line.StartsWith(ListNote.NAME_ID))
                 return new NoteBuilder().BuildFromLine(line, new ListNoteBuilder());
-            else if (line.StartsWith(RemindNote.ID))
+            else if (line.StartsWith(RemindNote.NAME_ID))
                 return new NoteBuilder().BuildFromLine(line, new RemindNoteBuilder());
-            else if (line.StartsWith(WarnNote.ID))
+            else if (line.StartsWith(WarnNote.NAME_ID))
                 return new NoteBuilder().BuildFromLine(line, new WarnNoteBuilder());
             else
             {

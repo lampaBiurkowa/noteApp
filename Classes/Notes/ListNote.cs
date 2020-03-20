@@ -6,7 +6,7 @@ namespace NoteApp
 {
     public class ListNote : IListNote
     {
-        public const string ID = "LIST";
+        public const string NAME_ID = "LIST";
         private const string TEXT_ICON = "===";
 
         public List<ListItem> Items { get; set; } = new List<ListItem>();
@@ -15,21 +15,21 @@ namespace NoteApp
         public DateTime CreationDate { get; set; }
         public string Content { get; set; }
         public string Header { get; set; }
+        public int Id { get; set; }
         public ConsoleColor ContentColor => ConsoleColor.White;
         public ConsoleColor HeaderColor => ConsoleColor.Yellow;
 
         public void BuildFromInput(string header, string content)
         {
-            Content = content;
-            CreationDate = DateTime.Now;
-            Header = header;
-            new NoteFromInputBuilder().BuildListItems(this); // D:
+            NoteFromInputBuilder builder = new NoteFromInputBuilder();
+            builder.BuildGenericData(this, header, content);
+            builder.BuildListItems(this);
         }
 
         public List<string> GetFullHeader()
         {
             List<string> result = new List<string>();
-            result.Add($"{TEXT_ICON} {ID}");
+            result.Add($"{TEXT_ICON} {NAME_ID}");
             result.Add($"## {Header} ## ({Items.Count} items, {CheckedItemsCount} highlighted)");
 
             return result;
@@ -61,7 +61,7 @@ namespace NoteApp
 
         public string GetSaveEntry()
         {
-            List<string> dataToSave = new List<string>() { ID, Header, Content, CreationDate.ToString(Constants.DATE_FORMAT) };
+            List<string> dataToSave = new List<string>() { NAME_ID, Id.ToString(), Header, Content, CreationDate.ToString(Constants.DATE_FORMAT) };
             foreach (var item in Items)
                 dataToSave.Add(getItemSaveFragment(item));
 

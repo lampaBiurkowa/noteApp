@@ -5,7 +5,7 @@ namespace NoteApp
 {
     public class SessionData
     {
-        List<INote> notes = new List<INote>();
+        static List<INote> notes = new List<INote>();
         FileLoader fileLoader = new FileLoader();
 
         public SessionData()
@@ -54,6 +54,24 @@ namespace NoteApp
             foreach (var note in notes)
                 if (note is IListNote)
                     displayer.DisplayFullList((IListNote)note);
+        }
+
+        public void TryRemoveNote(int id)
+        {
+            INote note = notes.Find(element => element.Id == id);
+            if (note == null)
+            {
+                Console.WriteLine($"Note with id {id} not found");
+                return;
+            }
+
+            notes.Remove(note);
+            fileLoader.SaveAllNotes(notes);
+        }
+
+        public static int GenerateId()
+        {
+            return notes.Count;
         }
     }
 }

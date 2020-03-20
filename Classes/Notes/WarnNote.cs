@@ -11,13 +11,14 @@ namespace NoteApp
 
         private const char WARNING_LEVEL_STRING_INDICATOR = '*';
         private const string TEXT_ICON = "/!\\";
-        public const string ID = "WARNING";
+        public const string NAME_ID = "WARNING";
 
         private int warningLevel;
 
         public DateTime CreationDate { get; set; }
         public string Content { get; set; }
         public string Header { get; set; }
+        public int Id { get; set; }
         public ConsoleColor ContentColor => ConsoleColor.White;
         public ConsoleColor HeaderColor => ConsoleColor.Red;
 
@@ -35,10 +36,7 @@ namespace NoteApp
 
         public void BuildFromInput(string header, string content)
         {
-            Content = content;
-            CreationDate = DateTime.Now;
-            Header = header;
-
+            new NoteFromInputBuilder().BuildGenericData(this, header, content);
             Console.WriteLine("Type warning level (number from 1 to 3)");
             int warningLevel;
             int.TryParse(Console.ReadLine(), out warningLevel);
@@ -48,7 +46,7 @@ namespace NoteApp
         public List<string> GetFullHeader()
         {
             List<string> result = new List<string>();
-            result.Add($"{TEXT_ICON} {ID}");
+            result.Add($"{TEXT_ICON} {NAME_ID}");
             result.Add($"## {Header} ## ({getWarningLevelAsString()})");
 
             return result;
@@ -66,7 +64,7 @@ namespace NoteApp
 
         public string GetSaveEntry()
         {
-            List<string> dataToSave = new List<string>() { ID, Header, Content, CreationDate.ToString(Constants.DATE_FORMAT), WarningLevel.ToString() };
+            List<string> dataToSave = new List<string>() { NAME_ID, Id.ToString(), Header, Content, CreationDate.ToString(Constants.DATE_FORMAT), WarningLevel.ToString() };
             return dataToSave.Aggregate((i, j) => i + FileLoader.SEPARATOR + j);
         }
     }

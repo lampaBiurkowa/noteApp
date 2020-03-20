@@ -116,5 +116,13 @@ namespace NoteApp
             ItemsModifier modifier = new ItemsModifier();
             modifier.TryAddToList(note, new ListItem(isChecked, content));
         }
+
+        public void BuildGenericData(INote note, string header, string content)
+        {
+            note.Content = content;
+            note.CreationDate = DateTime.Now;
+            note.Header = header;
+            note.Id = SessionData.GenerateId();
+        }
     }
 }

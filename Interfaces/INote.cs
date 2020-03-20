@@ -8,6 +8,7 @@ namespace NoteApp
         DateTime CreationDate { get; set; }
         string Content { get; set; }
         string Header { get; set; }
+        int Id { get; set; }
         ConsoleColor HeaderColor { get; }
         ConsoleColor ContentColor { get; }
 

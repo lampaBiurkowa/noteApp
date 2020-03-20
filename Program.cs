@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace NoteApp
 {
@@ -26,6 +25,9 @@ namespace NoteApp
                     case "5":
                         handleAddingNoteFromUser();
                         break;
+                    case "6":
+                        handleRemovingNoteFromUser();
+                        break;
                     case "7":
                         return;
                 }
@@ -40,7 +42,7 @@ namespace NoteApp
             Console.WriteLine("3 - display recent notes");
             Console.WriteLine("4 - search for a phrase (not implemented yet)");
             Console.WriteLine("5 - add a note");
-            Console.WriteLine("6 - remove a note (not implemented yet)");
+            Console.WriteLine("6 - remove a note");
             Console.WriteLine("7 - quit");
         }
 
@@ -65,6 +67,18 @@ namespace NoteApp
         {
             NoteFromInputBuilder builder = new NoteFromInputBuilder();
             builder.HandleAddingNoteFromUser(sessionData);
+        }
+
+        static void handleRemovingNoteFromUser()
+        {
+            const int DISCARD_ID = -1;
+            Console.WriteLine("Type id of note to remove (-1 to discard)");
+            int id;
+            int.TryParse(Console.ReadLine(), out id);
+            if (id == DISCARD_ID)
+                return;
+
+            sessionData.TryRemoveNote(id);
         }
     }
 }
