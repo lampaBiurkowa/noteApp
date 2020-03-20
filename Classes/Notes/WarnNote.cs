@@ -6,6 +6,8 @@ namespace NoteApp
 {
     public class WarnNote : INote
     {
+        private const int WARNING_LEVEL_SAVE_INDEX = 5;
+
         private const int MAX_WARNING = 3;
         private const int MIN_WARNING = 1;
 
@@ -40,6 +42,13 @@ namespace NoteApp
             Console.WriteLine("Type warning level (number from 1 to 3)");
             int warningLevel;
             int.TryParse(Console.ReadLine(), out warningLevel);
+            WarningLevel = warningLevel;
+        }
+
+        public void LoadUniqueFeatures(string[] components)
+        {
+            int warningLevel;
+            int.TryParse(components[WARNING_LEVEL_SAVE_INDEX], out warningLevel);
             WarningLevel = warningLevel;
         }
 

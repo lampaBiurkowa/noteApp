@@ -28,21 +28,25 @@ namespace NoteApp
 
         private INote getNoteFromId(string line)
         {
+            INote note;
             if (line.StartsWith(CheckListNote.NAME_ID))
-                return new NoteBuilder().BuildFromLine(line, new CheckListNoteBuilder());
+                note = new CheckListNote();
             else if (line.StartsWith(InfoNote.NAME_ID))
-                return new NoteBuilder().BuildFromLine(line, new InfoNoteBuilder());
+                note = new InfoNote();
             else if (line.StartsWith(ListNote.NAME_ID))
-                return new NoteBuilder().BuildFromLine(line, new ListNoteBuilder());
+                note = new ListNote();
             else if (line.StartsWith(RemindNote.NAME_ID))
-                return new NoteBuilder().BuildFromLine(line, new RemindNoteBuilder());
+                note = new RemindNote();
             else if (line.StartsWith(WarnNote.NAME_ID))
-                return new NoteBuilder().BuildFromLine(line, new WarnNoteBuilder());
+                note = new WarnNote();
             else
             {
                 handleUnrecognizedNoteError(line);
                 throw new Exception($"Unrecognized note type in line {line}");
             }
+
+            new NoteBuilder().BuildFromLine(line, note);
+            return note;
         }
 
         private void handleUnrecognizedNoteError(string line)

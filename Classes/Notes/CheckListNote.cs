@@ -6,6 +6,7 @@ namespace NoteApp
 {
     public class CheckListNote : IListNote
     {
+        private const int LAST_COMMON_INDEX = 4;
         public const string NAME_ID = "CHECKLIST";
         private const string TEXT_ICON = "=v=";
 
@@ -24,6 +25,11 @@ namespace NoteApp
             NoteFromInputBuilder builder = new NoteFromInputBuilder();
             builder.BuildGenericData(this, header, content);
             builder.BuildListItems(this);
+        }
+
+        public void LoadUniqueFeatures(string[] components)
+        {
+            new ListItemBuilder().InitListItemsFromComponents(components, LAST_COMMON_INDEX, this);
         }
 
         public List<string> GetFullHeader()

@@ -6,6 +6,8 @@ namespace NoteApp
 {
     public class RemindNote : INote
     {
+        private const int REMIND_DATE_SAVE_INDEX = 5;
+
         private const string TEXT_ICON = "(@)";
         public const string NAME_ID = "REMIND";
 
@@ -23,6 +25,13 @@ namespace NoteApp
             Console.WriteLine($"Type remind date (format {Constants.DATE_FORMAT})");
             DateTime remindDate;
             DateTime.TryParse(Console.ReadLine(), out remindDate);
+            RemindDate = remindDate;
+        }
+
+        public void LoadUniqueFeatures(string[] components)
+        {
+            DateTime remindDate;
+            DateTime.TryParse(components[REMIND_DATE_SAVE_INDEX], out remindDate);
             RemindDate = remindDate;
         }
 

@@ -21,6 +21,10 @@ namespace NoteApp
             new NoteFromInputBuilder().BuildGenericData(this, header, content);
         }
 
+        public void LoadUniqueFeatures(string[] components)
+        {
+        }
+
         public List<string> GetFullHeader()
         {
             List<string> result = new List<string>();

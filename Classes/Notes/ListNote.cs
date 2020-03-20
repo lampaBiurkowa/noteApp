@@ -6,6 +6,8 @@ namespace NoteApp
 {
     public class ListNote : IListNote
     {
+        private const int LAST_COMMON_INDEX = 4;
+
         public const string NAME_ID = "LIST";
         private const string TEXT_ICON = "===";
 
@@ -33,6 +35,11 @@ namespace NoteApp
             result.Add($"## {Header} ## ({Items.Count} items, {CheckedItemsCount} highlighted)");
 
             return result;
+        }
+
+        public void LoadUniqueFeatures(string[] components)
+        {
+            new ListItemBuilder().InitListItemsFromComponents(components, LAST_COMMON_INDEX, this);
         }
 
         public List<string> GetAdditionalContent()
